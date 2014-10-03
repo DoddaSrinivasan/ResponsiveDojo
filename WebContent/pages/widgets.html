@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>Project UI</title>
+<script src="../JS/lib/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:true"></script>
+<script src="../JS/navigation.js"></script>
+<script src="../JS/base.js" data-module="{includeAll:true, accordion : true, Grid : true}"></script>
+<link rel="stylesheet" type="text/css" href="../CSS/responsive.css">
+<link rel="stylesheet" href="../JS/lib/dojo/dijit/themes/claro/claro.css" />
+<link rel="stylesheet" href="../JS/lib/dojo/dojo/resources/dojo.css">
+<link rel="stylesheet" href="../JS/lib/dojo/dojox/grid/enhanced/resources/claro/EnhancedGrid.css">
+<link rel="stylesheet" href="../JS/lib/dojo/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css">
+<link href="../CSS/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/navigation.css" />
+<script>
+dojo.require("dojox.grid.EnhancedGrid");
+dojo.require("dojo.data.ItemFileWriteStore");
+dojo.ready(function(){
+    /*set up data store*/
+    var data = {
+      identifier: 'id',
+      items: []
+    };
+    var data_list = [
+      { col1: "normal", col2: false, col3: 'But are not followed by two hexadecimal', col4: 29.91},
+      { col1: "important", col2: false, col3: 'Because a % sign always indicates', col4: 9.33},
+      { col1: "important", col2: false, col3: 'Signs can be selectively', col4: 19.34}
+    ];
+    var rows = 20;
+    for(var i=0, l=data_list.length; i<rows; i++){
+      data.items.push(dojo.mixin({ id: i+1 }, data_list[i%l]));
+    }
+    var store = new dojo.data.ItemFileWriteStore({data: data});
+
+    /*set up layout*/
+    var layout = [
+      {'name': 'Column 1', 'field': 'id','width' : 'auto'},
+      {'name': 'Column 2', 'field': 'col2','width' : 'auto'},
+      {'name': 'Column 3', 'field': 'col3','width' : 'auto'},
+      {'name': 'Column 4', 'field': 'col4','width' : 'auto'}
+    ];
+
+    /*create a new grid:*/
+    var grid = new dojox.grid.EnhancedGrid({
+        id: 'gridId',
+        store: store,
+        structure: layout,
+        rowSelector: '20px'
+        },
+      document.createElement('div'));
+
+    /*append the new grid to the div*/
+    dojo.byId("gridDiv").appendChild(grid.domNode);
+
+    /*Call startup() to render the grid*/
+    grid.startup()
+    grid.resize();
+    Grid.level = "0";
+    Drf._attachViewPort(dojo.window);
+});
+</script>
+</head>
+<body class="claro">
+
+	<script type="dojo/require">at: "dojox/mvc/at"</script>
+	<div id="nav">
+		<div data-dojo-type="dojox.mvc.Group"
+			data-dojo-props="target: at('rel:', inLineMenu)">
+			<div data-dojo-type="dojox.mobile.RoundRectList">
+				<div data-dojo-type="dojox.mvc.Repeat"
+					data-dojo-props="children: at('inLineMenu', 'items'), removeRepeatNode : true">
+					<div data-dojo-type="dojox.mvc.Group"
+						data-dojo-props="target: at('rel:', ${this.index})">
+						<div class="inline" data-dojo-type="dojox.mobile.ListItem">
+							<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), href : at('rel:','hf')"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div id="dropDownMenuButton" class="navMore" style="display: none;"
+				onclick="navigation.showOrHideMenu()">
+				<span class="navMore-row"></span> <span class="navMore-row"></span>
+				<span class="navMore-row"></span>
+			</div>
+			<div id="dropDownMenu" class="hide">
+				<div data-dojo-type="dojox.mvc.Group"
+					data-dojo-props="target: at('rel:', menuList)">
+					<div data-dojo-type="dojox.mobile.RoundRectList">
+						<div data-dojo-type="dojox.mvc.Repeat"
+							data-dojo-props="children: at('menuList', 'items'), removeRepeatNode : true">
+							<div data-dojo-type="dojox.mvc.Group"
+								data-dojo-props="target: at('rel:', ${this.index})">
+								<div class="displayBlock" data-dojo-type="dojox.mobile.ListItem">
+									<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), href : at('rel:','hf')"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="blockedDiv">
+		<div class="jumbotron">
+			<h1>Project UI</h1>
+			<p class="lead">Supported across all tablets, mobile's and across all browsers</p>
+			<button class="btn btn-success" type="submit">Learn More</button>
+		</div>
+	</div>
+
+	<div class="blockedDiv">
+		<div id="tab" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="doLayout:false">
+			<div data-dojo-type="dijit/layout/ContentPane" title="My first tab"
+				data-dojo-props="selected:true">
+				<img src="../Images/codesngears.png" />
+			</div>
+			<div data-dojo-type="dijit/layout/ContentPane" title="My second tab">
+				<img src="../Images/img2.jpg" />
+			</div>
+			<div data-dojo-type="dijit/layout/ContentPane" title="My last tab" data-dojo-props="closable:true">
+				<img src="../Images/atechXchange.jpg" />	
+			</div>
+		</div>
+	</div>
+	
+	<div id="gridDiv" class="blockedDiv"></div>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>Project UI</title>
+<script src="../JS/lib/dojo/dojo/dojo.js"
+	data-dojo-config="parseOnLoad:true"></script>
+<script src="../JS/navigation.js"></script>
+<script src="../JS/base.js" data-module="{includeAll:true}"></script>
+<link rel="stylesheet" type="text/css" href="../CSS/responsive.css">
+<link rel="stylesheet" href="../JS/lib/dojo/dijit/themes/claro/claro.css" />
+<link href="../CSS/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/navigation.css" />
+<script>
+var wantVoiceSupport=false;emailFlag=true;passwordFlag=true;reEnterPassword=true;
+require(["dijit/Dialog", "dijit/form/Button","dojo/domReady!" ]);
+require([ "dojo/topic"], function(topic) {
+	var handle = topic.subscribe("idealTimeListner",function() {
+				if (pageVisibility.stopIdealTime) {
+					dijit.byId('formDialog2').show();	
+				}
+			});
+});
+function guideUser(){
+	wantVoiceSupport=true;
+		speech.speak('Here we go');
+		setTimeout(function(){
+			speech.speak('Please Enter your email');
+			
+		},1000);
+		
+		dijit.byId('formDialog2').hide();
+	}
+function validateEmailId(str){
+	if(wantVoiceSupport){
+	   var pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	   if(!pattern.test(str)) {
+		   speech.speak('Email  is invalid'); 
+
+	   }
+	   else{
+		   speech.speak('Email is valid');   
+	   }	
+	}
+}	
+
+	function comparePasswords() {
+		if (wantVoiceSupport) {
+			if (document.getElementById("password").value != document.getElementById("reEnterPassword").value ) {
+				speech.speak('Password re entered dosent match with above');
+			}
+			else speech.speak('Click on sign up to register');
+		}
+	}
+	function checkIfspeechEnabled(field){
+		if (wantVoiceSupport) {	
+		if(field==="email" && emailFlag){
+			emailFlag=false;
+						
+		}
+
+		else if(field==="password" && passwordFlag){
+			passwordFlag=false;
+			speech.speak('Please Enter your password');			
+		}
+
+		else if(field==="reenterpassword"&& reEnterPassword){
+			reEnterPassword=false;
+			speech.speak('Re enter the password that you have entered above');			
+		}
+
+		}
+	}
+</script>
+</head>
+<body class="claro">
+
+	<script type="dojo/require">at: "dojox/mvc/at"</script>
+	<div id="nav">
+		<div data-dojo-type="dojox.mvc.Group"
+			data-dojo-props="target: at('rel:', inLineMenu)">
+			<div data-dojo-type="dojox.mobile.RoundRectList">
+				<div data-dojo-type="dojox.mvc.Repeat"
+					data-dojo-props="children: at('inLineMenu', 'items'), removeRepeatNode : true">
+					<div data-dojo-type="dojox.mvc.Group"
+						data-dojo-props="target: at('rel:', ${this.index})">
+						<div class="inline" data-dojo-type="dojox.mobile.ListItem">
+							<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), href : at('rel:','hf')"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div id="dropDownMenuButton" class="navMore" style="display: none;"
+				onclick="navigation.showOrHideMenu()">
+				<span class="navMore-row"></span> <span class="navMore-row"></span>
+				<span class="navMore-row"></span>
+			</div>
+			<div id="dropDownMenu" class="hide">
+				<div data-dojo-type="dojox.mvc.Group"
+					data-dojo-props="target: at('rel:', menuList)">
+					<div data-dojo-type="dojox.mobile.RoundRectList">
+						<div data-dojo-type="dojox.mvc.Repeat"
+							data-dojo-props="children: at('menuList', 'items'), removeRepeatNode : true">
+							<div data-dojo-type="dojox.mvc.Group"
+								data-dojo-props="target: at('rel:', ${this.index})">
+								<div class="displayBlock" data-dojo-type="dojox.mobile.ListItem">
+									<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), href : at('rel:','hf')"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="blockedDiv">
+		<div class="jumbotron">
+			<h3>Join Our Forum</h3>
+			<p class="lead">Register in our Web Site with Speech enabled form's</p>
+			<button class="btn btn-success" type="submit">Learn More</button>
+		</div>
+	</div>
+	<center>
+	<div data-dojo-type="dijit.Dialog" id="formDialog2" title="Voice Support"
+		style="display: none">
+		<div class="dijitDialogPaneContentArea">
+			<label for='foo'>Do you need assistance to fill the form ?</label>
+		</div>
+		<div class="dijitDialogPaneActionBar">
+			<button data-dojo-type="dijit.form.Button" type="button"
+				data-dojo-props="onClick:guideUser">Yes</button>
+			<button data-dojo-type="dijit.form.Button" type="button"
+				data-dojo-props="onClick:function(){dijit.byId('formDialog2').hide();}">No</button>
+		</div>
+	</div>
+
+	<form>
+		<div class="input-group">
+			<input id="emailId" type="text" class="form-control"
+				placeholder="Email" onfocus="checkIfspeechEnabled('email')" onblur="validateEmailId(this.value)">
+			<input id="password" type="password" class="form-control" placeholder="Password"
+				onfocus="checkIfspeechEnabled('password')" >
+			 <input id="reEnterPassword" type="password" class="form-control" placeholder="Re enter thePassword"
+				onfocus="checkIfspeechEnabled('reenterpassword')" onblur="comparePasswords()">
+		</div>
+		<button class="btn btn-success" type="submit">Sign Up</button>
+	</form>
+	</center>
+</body>
+</html>

@@ -1,0 +1,143 @@
+
+@import url('pageOverlay.css');
+
+/*
+	3 Column Layout
+*/
+body{
+overflow:scroll;	
+}
+.blockedDiv{
+	padding:1% 4%
+}
+.col3{
+	width : 32%;
+	margin-right : 2%;	
+	height : 100px;
+	float : left;
+}
+
+.col3.ie.three{
+	width : 31%;
+	margin-right : 2%;	
+	height : 100px;
+	float : left;
+}
+
+.col3.ie.one{
+	width : 100%;				
+	height: 100px;
+	min-height : 200px;
+	margin-bottom : 20px;		
+}
+
+@media screen and ( max-width : 700px) {
+	.col3{
+		width : 100%;				
+		min-height : 200px;
+		margin-bottom : 20px;	
+	}	
+}
+
+/*
+	4 Column Layout
+*/
+
+.col4{
+	width : 23%;
+	margin-right : 2%;	
+	height : 100px;
+	float : left;
+}
+
+.col4.ie.one{
+	width : 100%;				
+	height: 100px;
+	min-height : 200px;
+	margin-bottom : 20px;		
+}
+
+.col4.ie.two{
+	width : 48%;				
+	height: 100px;
+	min-height : 200px;
+	margin-bottom : 20px;		
+}
+
+.col4.ie.four{
+	width : 23%;				
+	height: 100px;
+	min-height : 200px;
+	margin-bottom : 20px;		
+}
+
+@media screen and ( max-width : 700px) {
+	.col4{
+		width : 48%;
+		margin-right : 2%;
+		min-height : 200px;
+		margin-bottom : 5%;
+		height: auto;	
+	}	
+}
+
+@media screen and ( max-width : 400px) {
+	.col4{
+		width : 100%;				
+		min-height : 200px;
+		margin-bottom : 20px;		
+	}	
+}
+
+/* 
+	Navigation
+*/
+
+#nav_header {
+    background-color: rgba(0, 0, 0, 0);
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 10px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+/* Utility Classes */
+
+.marginRight0{
+	margin-right:0;
+}
+
+.grey {
+	background : #585858; 
+}
+
+.blue{
+	background : #0099FF;
+}
+
+.yellow{
+	background : #FFFF99;
+}
+
+.red{
+	background : red;
+}
+
+.clearBoth{
+	float : clear;
+}
+
+img{
+	width :100%;
+	max-width :100%;
+	height:auto;
+}
+
+#gridDiv {
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    min-width: 250px;
+}

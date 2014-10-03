@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<script src="../JS/lib/dojo/dojo/dojo.js" data-dojo-config="parseOnLoad:true"></script>
+<title>Insert title here</title>
+<link rel="stylesheet" href="../CSS/navigation.css" />
+<script src="../JS/navigation.js"></script>
+</head>
+<body>
+	<script type="dojo/require">at: "dojox/mvc/at"</script>
+	<div id="nav">
+		<div data-dojo-type="dojox.mvc.Group"
+			data-dojo-props="target: at('rel:', inLineMenu)">
+			<div data-dojo-type="dojox.mobile.RoundRectList">
+				<div data-dojo-type="dojox.mvc.Repeat"
+					data-dojo-props="children: at('inLineMenu', 'items'), removeRepeatNode : true">
+					<div data-dojo-type="dojox.mvc.Group"
+						data-dojo-props="target: at('rel:', ${this.index})">
+						<div class="inline" data-dojo-type="dojox.mobile.ListItem">
+							<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), hf : at('rel:','href')"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div id="dropDownMenuButton" class="navMore" style="display: none;" onclick="navigation.showOrHideMenu()">
+				<span class="navMore-row"></span>
+				<span class="navMore-row"></span>
+				<span class="navMore-row"></span>
+			</div>
+			<div id="dropDownMenu" class="hide">
+				<div data-dojo-type="dojox.mvc.Group"
+					data-dojo-props="target: at('rel:', menuList)">
+					<div data-dojo-type="dojox.mobile.RoundRectList">
+						<div data-dojo-type="dojox.mvc.Repeat"
+							data-dojo-props="children: at('menuList', 'items'), removeRepeatNode : true">
+							<div data-dojo-type="dojox.mvc.Group"
+								data-dojo-props="target: at('rel:', ${this.index})">
+								<div class="displayBlock" data-dojo-type="dojox.mobile.ListItem">
+									<a data-dojo-type="dojox.mvc.Output" data-dojo-props="value : at('rel:', 'item'), href : at('rel:','hf')"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
